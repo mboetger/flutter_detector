@@ -8,7 +8,7 @@ for item in $list; do
   pkg=$(echo $entry | cut -d" " -f2)
   baseapk=$(echo $entry | cut -d" " -f1)
   datadir=$(echo $baseapk | rev | cut -d"/" -f2- | rev)
-  isflutter=$(adb shell "find $datadir -name '*.apk' 2>/dev/null | xargs -r -n 1 unzip -l | grep libflutter.so | wc -l")
+  isflutter=$(adb shell "find $datadir -name '*.apk' 2>/dev/null | xargs -r -n 1 -P 5 unzip -l | grep libflutter.so | wc -l")
   if [[ "$isflutter" -ge 1 ]]; then
     ((++counter))
     echo "Flutter FOUND! $pkg"
