@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 echo "Finding Flutter Apps (may take awhile)"
 list=$(adb shell "pm list packages -f")
