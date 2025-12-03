@@ -3,7 +3,9 @@
 echo "Finding Flutter Apps (may take awhile)"
 list=$(adb shell "pm list packages -f")
 counter=0
+totalcounter=0
 for item in $list; do
+  ((++totalcounter))
   entry=$(echo $item | cut -d':' -f2 | sed -E 's/(.*)=/\1 /')
   pkg=$(echo $entry | cut -d" " -f2)
   baseapk=$(echo $entry | cut -d" " -f1)
@@ -14,5 +16,8 @@ for item in $list; do
     echo "Flutter FOUND! $pkg"
   fi
 done
-echo "\nFound: $counter"
+echo "\nSearched: $totalcounter"
+echo "Found: $counter"
+percentage=$(echo "scale=2; ($counter * 100) / $totalcounter" | bc)
+echo "Percent Flutter: $percentage%"
 
